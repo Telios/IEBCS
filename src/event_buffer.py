@@ -1,6 +1,8 @@
 # Damien JOUBERT 17-01-2020
 import numpy as np
 import os.path
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '.'))
 from dat_files import write_event_dat, write_event_es, write_event_csv, load_dat_event
 
 

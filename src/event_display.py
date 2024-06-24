@@ -14,7 +14,7 @@ class EventDisplay():
     im = np.zeros((10, 10, 3), dtype=np.uint8)  # Image to render
     render = 0  # 0: binary image, 1: ts
     render_tau = 40000  # tau decay of the time surface (us)
-    display_time = True
+    display_time = False
 
     def __init__(self, name, dx, dy, frametime, render=0):
         """ Initialize the Display by reseting the internal timer of the structure and providing the right size of
@@ -42,7 +42,7 @@ class EventDisplay():
         self.time_surface[:] = 0
         self.pol_surface[:] = 0
 
-    def update(self, pk, dt):
+    def update(self, pk, dt, display=False):
         """  During the time dt, the EventBuffer was created. This function adds these events to the structure and
             triggers a display if needed
             Args:
@@ -64,15 +64,6 @@ class EventDisplay():
             if self.render == 1:
                 self.im[:, :, 0] = (self.pol_surface * 2 - 1) * 125 * np.exp(-(self.time - self.time_surface.astype(np.double)) / self.render_tau)
             if self.display_time: self.im = cv2.putText(self.im, '{} s'.format(self.time / 1e6), (0, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 255))
-            cv2.imshow(self.name, self.im)
-            cv2.waitKey(10)
-
-
-
-
-
-
-
-
-
-
+            if display:
+                cv2.imshow(self.name, self.im)
+                cv2.waitKey(10)
