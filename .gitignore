@@ -1,4 +1,6 @@
-
+build/
+dist/
+dsi.egg-info/
 .DS_Store
 .idea/*
 src/__pycache__/*
